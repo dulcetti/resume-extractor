@@ -1,71 +1,8 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  align-items: flex-start;
-  background-color: #f5f5f0;
-  color: #1a1a18;
-  display: flex;
-  font-family: system-ui, sans-serif;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 2rem 1rem;
-}
-
-label {
-  color: #444;
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-button {
-  padding: 0.75rem 1.5rem;
-  border-radius: 10px;
-  border: none;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
-}
-
-button:active {
-  transform: scale(0.98);
-}
-
-h1 {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-input[type="file"] {
-  background-color: #fafaf8;
-  border: 2px dashed #ccc;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  padding: 1.2rem;
-  transition: border-color 0.2s;
-}
-
-input[type="file"]:hover {
-  border-color: #888;
-}
-
-.container {
-  background-color: #fff;
-  border: 1px solid #e0dfd8;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  max-width: 720px;
-  padding: 2rem;
-  width: 100%;
+.button-group {
+  align-items:center;
+  display:flex;
+  flex-wrap:wrap;
+  gap:1rem;
 }
 
 .error-box {
@@ -123,16 +60,16 @@ input[type="file"]:hover {
   accent-color: #4a6cf7;
 }
 
-#process-btn {
+.process-btn {
   align-self: flex-start;
   background-color: #4a6cf7;
   color: #fff;
 }
 
-#process-btn:hover { background-color: #3a5ce7; }
-#process-btn:disabled { background-color: #aaa; cursor: not-allowed; }
-#process-btn.stop { background-color: #e04444; }
-#process-btn.stop:hover { background-color: #c03333; }
+.process-btn:hover { background-color: #3a5ce7; }
+.process-btn:disabled { background-color: #aaa; cursor: not-allowed; }
+.process-btn.stop { background-color: #e04444; }
+.process-btn.stop:hover { background-color: #c03333; }
 
 .status {
   color: #666;
@@ -144,6 +81,12 @@ input[type="file"]:hover {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+}
+
+.result-area > .result-label {
+  color:#444;
+  font-size:.875rem;
+  font-weight:500;
 }
 
 .result-box {
@@ -164,17 +107,10 @@ input[type="file"]:hover {
   border: 1px solid #ddd;
   color: #444;
   font-size: 0.85rem;
+  margin: 0 0 0 auto;
   padding: 0.5rem 1rem;
 }
 
 .copy-btn:hover {
   background-color: #e4e3de;
-}
-
-.footer {
-  border-top: 1px solid #eee;
-  color: #999;
-  font-size: 0.78rem;
-  padding-top: 0.5rem;
-  text-align: center;
 }
