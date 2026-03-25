@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+
 import { useResumeProcessor } from "@/hooks/use-resume-processor";
 import styles from '@/styles/ResumeConverter.module.scss';
 
@@ -13,20 +14,20 @@ const SECTIONS = [
   "Publicações",
 ];
 
-export function ResumeConverter() {
+export function ResumeExtractor() {
   const { state, process, stop } = useResumeProcessor();
   const [file, setFile] = useState<File | null>(null);
   const [sections, setSections] = useState<Record<string, boolean>>(
-    Object.fromEntries(SECTIONS.map((s) => [s, true]))
+    Object.fromEntries(SECTIONS.map((section) => [section, true]))
   );
 
-  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const selected = e.target.files?.[0] ?? null;
+  function handleFileChange(evn: React.ChangeEvent<HTMLInputElement>) {
+    const selected = evn.target.files?.[0] ?? null;
     setFile(selected);
   }
 
   function handleSectionChange(section: string, checked: boolean) {
-    setSections((prev) => ({ ...prev, [section]: checked }));
+    setSections((previous) => ({ ...previous, [section]: checked }));
   }
 
   function handleSubmit() {
@@ -34,13 +35,20 @@ export function ResumeConverter() {
       stop();
       return;
     }
-    if (!file) return;
-    const selected = SECTIONS.filter((s) => sections[s]);
+
+    if (!file) {
+      return;
+    }
+
+    const selected = SECTIONS.filter((section) => sections[section]);
     process(file, selected);
   }
 
   async function handleCopy() {
-    if (!state.result) return;
+    if (!state.result) {
+      return;
+    }
+
     await navigator.clipboard.writeText(state.result);
   }
 
@@ -55,7 +63,7 @@ export function ResumeConverter() {
           onChange={handleFileChange}
         />
         
-        <span className={styles.hint}>Selecione um arquivo .pdf do seu computador</span>
+        <p className={styles.hint}>Selecione um arquivo .pdf do seu computador</p>
       </div>
 
       <div className={styles.field}>
@@ -67,7 +75,7 @@ export function ResumeConverter() {
                 type="checkbox"
                 value={section}
                 checked={sections[section]}
-                onChange={(e) => handleSectionChange(section, e.target.checked)}
+                onChange={(evn) => handleSectionChange(section, evn.target.checked)}
               />
               {section}
             </label>
@@ -91,12 +99,18 @@ export function ResumeConverter() {
 
       <div className={styles["result-area"]}>
         <label className={styles["result-label"]}>Resultado:</label>
-        <div className={styles["result-box"]}>{state.result || "O resultado aparecerá aqui..."}</div>
-        <button onClick={handleCopy} disabled={!state.result} className={styles["copy-btn"]}>
+        <div className={styles["result-box"]}>
+          {state.result || "O resultado aparecerá aqui..."}
+        </div>
+
+        <button
+          onClick={handleCopy}
+          disabled={!state.result}
+          className={styles["copy-btn"]}
+        >
           Copiar resultado
         </button>
       </div>
-
     </>
   );
 }
